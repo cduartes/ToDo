@@ -1,7 +1,51 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
+{% block header %}
+        <link href='{% static "fullcalendar.min.css" %}' rel='stylesheet' />
+        <link href='{% static "fullcalendar.print.min.css" %}' rel='stylesheet' media='print' />
+        <script src='{% static "lib/moment.min.js" %}'></script>
+        <script src='{% static "lib/jquery.min.js" %}'></script>
+        <script src='{% static "fullcalendar.js" %}'></script>
+        <script src='{% static "locale-all.js" %}'></script>
+        <script>
+            $(document).ready(function() {
+                $('#calendar').fullCalendar({
+                locale: "es",
+                editable: false,
+                weekNumbers: false,
+                eventLimit: true, // allow "more" link when too many events
+                events: [
+                    {% for t in tareas %}
+                        {
+                            title  : '{{ t.titulo }}',
+                            start  : '{{ t.fechaInicio }}',
+                            end    : '{{ t.fechaTermino }}'
+                        },
+                    {% endfor %}
+                ]
+                });
+            });
+        </script>
+        <style>
+            body {
+                margin: 40px 10px;
+                padding: 0;
+                font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+                font-size: 14px;
+            }
+            #calendar {
+                max-width: 900px;
+                margin: 0 auto;
+            }
+        </style>
+
+{% endblock header %}
+
 {% block content %}
 <div class="container">
-adasd
+    <h1>Calendario</h1>
+    <div id='calendar'></div>
 </div>
 {% endblock content %}
