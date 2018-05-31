@@ -2,6 +2,64 @@
 
 {% block content %}
 <div class="container">
-
+    <div class="row">
+        <div class="col-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Tarea original
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Título: </label> {{ tarea.titulo }}
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción: </label> {{ tarea.descripcion }}
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de inicio: </label> {{ tarea.fechaInicio }}
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de término: </label> {{ tarea.fechaTermino }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+            ->
+        </div>
+        <div class="col-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Actualizar datos
+                </div>
+                <div class="panel-body">
+                    <form action="{% url 'actualizar_tarea' %}" method="POST">
+                    {% csrf_token %}
+                        <div class="form-group">
+                            <label for="titulo">Título</label>
+                            <input type="hidden" id="hidden_id" name="hidden_id" value="{{ tarea.id }}">
+                            <input type="text" class="form-control" id="titulo" name="titulo" value="{{ tarea.titulo }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcion">Descripción</label>
+                            <input type="textarea" class="form-control" id="descripcion" name="descripcion" value="{{ tarea.descripcion }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha_inicio">Fecha inicio</label>
+                            <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" value="{{ tarea.fechaInicio|date:"Y-m-d" }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha_termino">Fecha termino</label>
+                            <input type="date" class="form-control" id="fecha_termino" name="fecha_termino" value="{{ tarea.fechaTermino|date:"Y-m-d" }}">
+                        </div>
+                        <div class="panel-footer" style="text-align: center">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="button" onclick="location.href='{% url "tareas" %}'" class="btn btn-secondary">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock content %}

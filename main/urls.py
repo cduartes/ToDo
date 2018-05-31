@@ -13,4 +13,7 @@ urlpatterns = [
 
     path('crear_tarea', views.crear_tarea, name="crear_tarea"),
     path('calendario', views.calendario, name="calendario"),
+    path('tarea', views.tarea, name="tarea"),
+    path('actualizar_tarea', views.actualizar_tarea, name="actualizar_tarea"),
+    path('eliminar_tarea', views.eliminar_tarea, name="eliminar_tarea"),
 ]
