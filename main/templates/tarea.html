@@ -21,6 +21,9 @@
                     <div class="form-group">
                         <label>Fecha de término: </label> {{ tarea.fechaTermino }}
                     </div>
+                    <div class="form-group">
+                        <label>Estado: </label> {{ tarea.estado }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,6 +54,18 @@
                         <div class="form-group">
                             <label for="fecha_termino">Fecha termino</label>
                             <input type="date" class="form-control" id="fecha_termino" name="fecha_termino" value="{{ tarea.fechaTermino|date:"Y-m-d" }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="estado">Fecha termino</label>
+                            <select class="form-control" id="estado" name="estado">
+                                {% for e in estados %}
+                                    {% if e.id == tarea.estado.id %}
+                                        <option selected="selected" value="{{ e.id }}">{{ e.nombre }}</option>
+                                    {% else %}
+                                        <option value="{{ e.id }}">{{ e.nombre }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
                         </div>
                         <div class="panel-footer" style="text-align: center">
                             <button type="submit" class="btn btn-primary">Guardar</button>

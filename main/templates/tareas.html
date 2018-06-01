@@ -27,6 +27,15 @@
                             <label for="fecha_termino">Fecha termino</label>
                             <input type="date" class="form-control" id="fecha_termino" name="fecha_termino">
                         </div>
+                        <div class="form-group">
+                            <label for="estado">Estado</label>
+                            <select class="form-control" id="estado" name="estado">
+                                <option selected disabled>Seleccione un estado</option>
+                                {% for e in estados %}
+                                <option value="{{ e.id }}">{{ e.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                     <div class="panel-footer" style="text-align: center">
                         <button type="submit" class="btn btn-primary">Crear tarea</button>
@@ -44,25 +53,36 @@
                                 <th>Título</th>
                                 <th>Descripción</th>
                                 <th>Fecha</th>
+                                <th>Estado</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                         {% for t in tareas %}
                             <tr>
-                                <td class="col-3">
-                                    <a href="{% url 'tarea' %}?id={{ t.id }}">{{t.titulo}}</a>
-                                    <img src="{% static 'images/icons/file_delete.png' %}" width="12px" height="12px" onclick="location.href='{% url 'eliminar_tarea'%}?id={{ t.id }}'">
-                                </td>
+                                <td class="col-3"><a href="{% url 'tarea' %}?id={{ t.id }}">{{t.titulo}}</a></td>
                                 <td class="col-6">{{ t.descripcion }}</td>
                                 <td class="col-3">{{ t.fechaInicio }}/{{ t.fechaTermino}}</td>
+                                <td class="col-3">{{ t.estado }}</td>
+                                <td class="col-1">
+                                    <img src="{% static 'images/icons/file_delete.png' %}" width="12px" height="12px" onclick="location.href='{% url 'eliminar_tarea'%}?id={{ t.id }}'">
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="5">No existe información</td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
                 </div>
+                {% if all == 'TRUE' %}
+                    <div class="panel-footer"><a href="{% url 'tareas' %}">Ver activas</a></div>
+                {% else %}
+                    <div class="panel-footer"><a href="{% url 'tareas' %}?all=TRUE">Ver todas</a></div>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
-
 {% endblock content %}

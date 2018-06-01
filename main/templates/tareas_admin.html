@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block header %}
+        <script>
+            function filter() {
+            // Declare variables
+            var input, filter, table, tr, td, i;
+            input = document.getElementById("filter_input");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("data_table");
+            tr = table.getElementsByTagName("tr");
+            
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+                }
+            }
+            }
+        </script>
+{% endblock header %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <input type="text" class="form-control" id="filter_input" onkeyup="filter()" placeholder="Buscar por nombre de usuario..">
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover table-striped table-bordered" id="data_table">
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Usuario</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for t in tareas %}
+                            <tr>
+                                <td class="col-3">{{t.titulo}}</a></td>
+                                <td class="col-6">{{ t.usuario.first_name }} {{ t.usuario.last_name }}</td>
+                                <td class="col-3">{{ t.fechaInicio }}/{{ t.fechaTermino}}</td>
+                                <td class="col-3">{{ t.estado }}</td>
+                                <td class="col-1">
+                                    <img src="{% static 'images/icons/file_delete.png' %}" width="12px" height="12px" onclick="location.href='{% url 'eliminar_tarea'%}?id={{ t.id }}'">
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% if all == 'TRUE' %}
+                    <div class="panel-footer"><a href="{% url 'tareas' %}">Ver activas</a></div>
+                {% else %}
+                    <div class="panel-footer"><a href="{% url 'tareas' %}?all=TRUE">Ver todas</a></div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
