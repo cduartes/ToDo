@@ -13,23 +13,23 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <label for="titulo">Título</label>
-                            <input type="text" class="form-control" id="titulo" name="titulo">
+                            <input type="text" class="form-control" id="titulo" name="titulo" required>
                         </div>
                         <div class="form-group">
                             <label for="descripcion">Descripción</label>
-                            <input type="textarea" class="form-control" id="descripcion" name="descripcion">
+                            <input type="textarea" class="form-control" id="descripcion" name="descripcion" required>
                         </div>
                         <div class="form-group">
                             <label for="fecha_inicio">Fecha inicio</label>
-                            <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio">
+                            <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
                         </div>
                         <div class="form-group">
                             <label for="fecha_termino">Fecha termino</label>
-                            <input type="date" class="form-control" id="fecha_termino" name="fecha_termino">
+                            <input type="date" class="form-control" id="fecha_termino" name="fecha_termino" required>
                         </div>
                         <div class="form-group">
                             <label for="estado">Estado</label>
-                            <select class="form-control" id="estado" name="estado">
+                            <select class="form-control" id="estado" name="estado" required>
                                 <option selected disabled>Seleccione un estado</option>
                                 {% for e in estados %}
                                 <option value="{{ e.id }}">{{ e.nombre }}</option>
