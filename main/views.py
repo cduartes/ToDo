@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Tarea, Estado
+from .models import Tarea, Estado, Tipo
 
 # Create your views here.
 def root(request):
@@ -26,6 +26,7 @@ View will only show active Tareas, hiding others untill the GET parameter "all=T
 def tareas(request):
     admin = request.user.groups.filter(name='usuario_admin').exists()
     estados = Estado.objects.all().order_by('nombre')
+    tipos = Tipo.objects.all().order_by('nombre')
     all_tareas = 'FALSE'
     if request.GET.get("all"):
         if request.GET.get("all") == 'TRUE' or request.GET.get("all") == 'true':
@@ -42,7 +43,7 @@ def tareas(request):
         usuarios = User.objects.all()
         return render(request, 'tareas_admin.html', { 'tareas': tareas, 'estados': estados, 'all': all_tareas, 'usuarios': usuarios})
     else:
-        return render(request, 'tareas.html', { 'tareas': tareas, 'estados': estados, 'all': all_tareas})
+        return render(request, 'tareas.html', { 'tareas': tareas, 'estados': estados, 'tipos': tipos, 'all': all_tareas})
 
 """
 Create Tarea
@@ -56,6 +57,7 @@ def crear_tarea(request):
     tarea.descripcion = request.POST.get('descripcion')
     tarea.fechaInicio = request.POST.get('fecha_inicio')
     tarea.fechaTermino = request.POST.get('fecha_termino')
+    tarea.tipo = Estado.objects.get(pk=request.POST.get('tipo'))
     tarea.estado = Estado.objects.get(pk=request.POST.get('estado'))
     tarea.usuario = request.user
     tarea.save()
@@ -73,6 +75,7 @@ def actualizar_tarea(request):
         tarea.descripcion = request.POST.get('descripcion')
         tarea.fechaInicio = request.POST.get('fecha_inicio')
         tarea.fechaTermino = request.POST.get('fecha_termino')
+        tarea.tipo = Estado.objects.get(pk=request.POST.get('tipo'))
         tarea.estado = Estado.objects.get(pk=request.POST.get('estado'))
         tarea.save()
     return redirect('tareas')
@@ -112,8 +115,9 @@ Display data of a single Tarea
 @require_GET
 def tarea(request):
     estados = Estado.objects.all().order_by('nombre')
+    tipos = Tipo.objects.all().order_by('nombre')
     tarea = Tarea.objects.get(pk=request.GET.get("id"))
     if request.user == tarea.usuario:
-        return render(request, 'tarea.html', { 'tarea': tarea, 'estados': estados })
+        return render(request, 'tarea.html', { 'tarea': tarea, 'estados': estados, 'tipos': tipos })
     else:
         return HttpResponse("Error al obtener elemento. Credenciales no coinciden.")

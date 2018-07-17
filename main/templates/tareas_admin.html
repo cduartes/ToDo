@@ -42,6 +42,7 @@
                                 <th>Título</th>
                                 <th>Usuario</th>
                                 <th>Fecha</th>
+                                <th>Tipo</th>
                                 <th>Estado</th>
                                 <th></th>
                             </tr>
@@ -52,6 +53,7 @@
                                 <td class="col-3">{{t.titulo}}</a></td>
                                 <td class="col-6">{{ t.usuario.first_name }} {{ t.usuario.last_name }}</td>
                                 <td class="col-3">{{ t.fechaInicio }}/{{ t.fechaTermino}}</td>
+                                <td class="col-3">{{ t.tipo }}</td>
                                 <td class="col-3">{{ t.estado }}</td>
                                 <td class="col-1">
                                     <img src="{% static 'images/icons/file_delete.png' %}" width="12px" height="12px" onclick="location.href='{% url 'eliminar_tarea'%}?id={{ t.id }}'">

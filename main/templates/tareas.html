@@ -28,6 +28,15 @@
                             <input type="date" class="form-control" id="fecha_termino" name="fecha_termino" required>
                         </div>
                         <div class="form-group">
+                            <label for="tipo">Tipo</label>
+                            <select class="form-control" id="tipo" name="tipo" required>
+                                <option selected disabled>Seleccione un tipo</option>
+                                {% for t in tipos %}
+                                <option value="{{ t.id }}">{{ t.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="estado">Estado</label>
                             <select class="form-control" id="estado" name="estado" required>
                                 <option selected disabled>Seleccione un estado</option>
