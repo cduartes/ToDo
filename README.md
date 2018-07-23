@@ -2,7 +2,21 @@
 
 ## Funcionalidades
 
-- Distinción por usuario administrador o usuario regular (debe asignarse mediante dashboard de Django)
+- Distinción por usuario administrador o usuario regular (debe asignarse mediante dashboard administrativo de Django)
+
+  - El tipo Tarea cuenta con:
+
+    - Titulo
+  
+    - Descripción
+  
+    - Fecha de inicio
+  
+    - Fecha de término
+  
+    - Tipo
+  
+    - Estado
 
 - Usuario regular
 
@@ -21,5 +35,13 @@
   - No puede crear Tareas propias.
 
   - Puede visualizar calendario con Tareas activas de todos los usuarios.
+
+- Dashboard administrativo del sistema
+
+  - CRUD para tipos de tareas.
+
+  - CRUD para estados de tareas.
+
+  - CRUD para usuarios.
 
 ### Cristian Duartes Lizama
