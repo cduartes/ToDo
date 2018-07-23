@@ -57,7 +57,7 @@ def crear_tarea(request):
     tarea.descripcion = request.POST.get('descripcion')
     tarea.fechaInicio = request.POST.get('fecha_inicio')
     tarea.fechaTermino = request.POST.get('fecha_termino')
-    tarea.tipo = Estado.objects.get(pk=request.POST.get('tipo'))
+    tarea.tipo = Tipo.objects.get(pk=request.POST.get('tipo'))
     tarea.estado = Estado.objects.get(pk=request.POST.get('estado'))
     tarea.usuario = request.user
     tarea.save()
